@@ -80,11 +80,6 @@ function addDepartment() {
 }
 
 
-function addRole() {
-    console.log('addRole')
-    mainQuestion()
-}
-
 
 function addRole(){
     console.log('Add role to role table')
