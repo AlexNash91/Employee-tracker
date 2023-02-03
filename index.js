@@ -86,16 +86,69 @@ function addRole() {
 }
 
 
-function addEmployee() {
-    console.log('addEmployee')
-    mainQuestion()
+function addRole(){
+    console.log('Add role to role table')
+    inquirer.prompt([
+        {
+            type: 'input',
+            name: 'role',
+            message: 'What is the title for the new role?',
+        },
+        {
+            type: 'input',
+            name: 'salary',
+            message: 'What is the salary for this new role?',
+        },
+        {
+            type: 'input',
+            name: 'id',
+            message: 'What is the department id for this new role?',
+        }
+    ])
+    .then(answer => {
+        connect.query(`INSERT INTO role VALUES(id,'${answer.role}', ${answer.salary}, ${answer.id})`, (err,data) => {
+        if(err) throw err;
+        console.log('')
+        viewRoles()
+
+    })
+})
 }
 
 
-function updateEmployee() {
-    console.log('updateEmployee')
-    //query emp id from user
-    mainQuestion()
+function updateEmployeeRole() {
+    inquirer
+        .prompt([
+            {
+                type: 'input',
+                name: 'firstName',
+                message: 'Enter the first name of the employee you want to update:'
+            },
+            {
+                type: 'input',
+                name: 'lastName',
+                message: 'Enter the last name of the employee you want to update:'
+            },
+            {
+                type: 'input',
+                name: 'newRole',
+                message: 'Enter the new Employee role:'
+            },
+        ])
+        .then(answers => {
+            const { firstName, lastName, newRole } = answers;
+
+            let updateStatement = `UPDATE employee SET role_id = '${newRole}' WHERE first_name = '${firstName}' AND last_name = '${lastName}'`;
+
+            connection.query(updateStatement, (error, results) => {
+                if (error) {
+                    console.error(error);
+                } else {
+                    console.log(`Successfully updated ${firstName} ${lastName} to role ID# ${newRole}`);
+                }
+            });
+            mainQuestion()
+        });
 }
 
 
