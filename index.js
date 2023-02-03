@@ -36,7 +36,7 @@ function mainQuestion() {
                 addEmployee()
                 break;
             case 'Update Employee':
-                updateEmployee()
+                updateEmployeeRole()
                 break;
             default:
                 connection.end()
@@ -75,9 +75,23 @@ function viewDeparments() {
 
 // add funtionality for these
 function addDepartment() {
-    console.log('addDepartment')
-    mainQuestion()
-}
+    inquirer.prompt([
+        {
+        type: 'input',
+        name: 'newDepartment',
+        message: "What is your new department's name?"
+        }
+    ])
+    .then(answer => {
+        console.log(answer);
+        connection.query(`INSERT INTO department (name) VALUES('${answer.newDepartment}')`, (err, data) => {
+            if (err) throw err;
+            console.log(" ")
+            console.table(data)
+            mainQuestion()
+            })
+        })
+    };
 
 
 
