@@ -160,4 +160,44 @@ function updateEmployeeRole() {
         });
 }
 
+function addEmployee() {
+    inquirer
+        .prompt([
+            {
+                type: 'input',
+                name: 'firstName',
+                message: 'Enter the first name of the employee you want to add:'
+            },
+            {
+                type: 'input',
+                name: 'lastName',
+                message: 'Enter the last name of the employee you want to add:'
+            },
+            {
+                type: 'input',
+                name: 'newRole',
+                message: 'Enter the new Employee role:'
+            },
+            {
+                type: 'input',
+                name: 'newManager',
+                message: 'Enter the manager: (Press Enter if Employee is a manager)'
+            },
+        ])
+        .then(answers => {
+            const { firstName, lastName, newRole, newManager } = answers;
 
+            let updateStatement = `INSERT INTO employee (first_name, last_name, role_id, manager_id) VALUES ('${firstName}', '${lastName}', ${newRole}, ${newManager})`;
+
+            connection.query(updateStatement, (error, results) => {
+                if (error) {
+                    console.error(error);
+                } else {
+                    console.log(`Successfully created ${firstName} ${lastName} to role ID# ${newRole}`);
+                }
+            });
+            mainQuestion()
+        });
+}
+
+connection.query(`INSERT INTO department (name) VALUES('${answer.newDepartment}`)
