@@ -73,7 +73,7 @@ function viewDeparments() {
     mainQuestion()
 }
 
-
+// add funtionality for these
 function addDepartment() {
     console.log('addDepartment')
     mainQuestion()
