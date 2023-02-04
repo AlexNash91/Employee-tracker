@@ -4,19 +4,19 @@ require('console.table')
 
 if (connection) {
     console.log("Datebase is running")
-    mainQuestion()
+    inquire()
 }
 
-function mainQuestion() {
+function inquire() {
     inquirer.prompt([
         {
             type: 'list',
-            name: 'mainQuestion',
+            name: 'inquire',
             message: "What would you like to do?",
             choices : ['View Roles', 'View Employees', 'View Departments', 'Add Department','Add Role', 'Add Employee', 'Update Employee', 'Quit']
         }
     ]).then(answer => {
-        switch (answer.mainQuestion) {
+        switch (answer.inquire) {
             case 'View Roles':
                 viewRoles()
                 break;
@@ -36,7 +36,7 @@ function mainQuestion() {
                 addEmployee()
                 break;
             case 'Update Employee':
-                updateEmployeeRole()
+                updateEmployee()
                 break;
             default:
                 connection.end()
@@ -52,7 +52,7 @@ function viewRoles() {
         console.log("")
         console.table(data)
     })
-    mainQuestion()
+    inquire()
 }
 
 function viewEmployees() {
@@ -61,7 +61,7 @@ function viewEmployees() {
         if (err) throw err;
         console.table(data)
     })
-    mainQuestion()
+    inquire()
 }
 
 function viewDeparments() {
@@ -69,7 +69,7 @@ function viewDeparments() {
         if (err) throw err;
         console.table(data)
     })
-    mainQuestion()
+    inquire()
 }
 
 
@@ -87,7 +87,7 @@ function addDepartment() {
             if (err) throw err;
             console.log(" ")
             console.table(data)
-            mainQuestion()
+            inquire()
             })
         })
     };
@@ -124,7 +124,7 @@ function addRole(){
 }
 
 
-function updateEmployeeRole() {
+function updateEmployee() {
     inquirer
         .prompt([
             {
@@ -155,7 +155,7 @@ function updateEmployeeRole() {
                     console.log(`Successfully updated ${firstName} ${lastName} to role ID# ${newRole}`);
                 }
             });
-            mainQuestion()
+            inquire()
         });
 }
 
@@ -195,7 +195,7 @@ function addEmployee() {
                     console.log(`Successfully created ${firstName} ${lastName} to role ID# ${newRole}`);
                 }
             });
-            mainQuestion()
+            inquire()
         });
 }
 
