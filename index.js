@@ -114,7 +114,7 @@ function addRole(){
         }
     ])
     .then(answer => {
-        connect.query(`INSERT INTO role VALUES(id,'${answer.role}', ${answer.salary}, ${answer.id})`, (err,data) => {
+        connection.query(`INSERT INTO role VALUES(id,'${answer.role}', ${answer.salary}, ${answer.id})`, (err,data) => {
         if(err) throw err;
         console.log('')
         viewRoles()
